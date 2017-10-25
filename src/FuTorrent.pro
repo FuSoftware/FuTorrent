@@ -38,7 +38,8 @@ SOURCES += \
     torrent/parsing/data/tinteger.cpp \
     torrent/parsing/data/tlist.cpp \
     torrent/parsing/data/tdictionnary.cpp \
-    utils.cpp
+    utils.cpp \
+    torrent/tracker/tracker.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -52,4 +53,5 @@ HEADERS += \
     torrent/parsing/data/tlist.h \
     torrent/parsing/data/tdictionnary.h \
     torrent/parsing/data/tdatatypes.h \
-    utils.h
+    utils.h \
+    torrent/tracker/tracker.h
