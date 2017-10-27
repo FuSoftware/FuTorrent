@@ -24,4 +24,6 @@ std::string testDictionary(std::string bytes);
 void testTorrentDic();
 void testTorrentDic(std::string file);
 
+void testDictionaryHash(std::string dic);
+
 #endif // TESTS_H

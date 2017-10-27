@@ -6,7 +6,7 @@
 
 #https://wiki.theory.org/index.php/BitTorrentSpecification#Bencoding
 
-QT       += core gui
+QT       += core gui network
 CONFIG += console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -39,7 +39,10 @@ SOURCES += \
     torrent/parsing/data/tlist.cpp \
     torrent/parsing/data/tdictionnary.cpp \
     utils.cpp \
-    torrent/tracker/tracker.cpp
+    torrent/tracker/tracker.cpp \
+    qt/tracker/qtracker.cpp \
+    utils/sha1.cpp \
+    torrent/clientsettings.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,4 +57,7 @@ HEADERS += \
     torrent/parsing/data/tdictionnary.h \
     torrent/parsing/data/tdatatypes.h \
     utils.h \
-    torrent/tracker/tracker.h
+    torrent/tracker/tracker.h \
+    qt/tracker/qtracker.h \
+    utils/sha1.h \
+    torrent/clientsettings.h

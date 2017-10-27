@@ -1,5 +1,6 @@
 #include "tstring.h"
 #include "tbytes.h"
+#include <sstream>
 
 TString::TString(TBytes *bytes)
 {
@@ -18,8 +19,19 @@ void TString::read(TBytes *bytes)
 
     while(c_char != ':')
     {
-        lengthBytes.push_back(c_char);
-        c_char = bytes->nextByte();
+        if(c_char >= '0' && c_char <= '9')
+        {
+            lengthBytes.push_back(c_char);
+            c_char = bytes->nextByte();
+        }
+        else
+        {
+            std::ostringstream oss;
+            oss << "Trying to read TString length but found a NaN character " << c_char << " at position " << bytes->getCurrentPosition() << std::endl;
+            oss << "Surrounding bytes => " << bytes->getText(bytes->getCurrentPosition()-10, 20);
+            throw std::runtime_error(oss.str());
+        }
+
     }
 
     //Adds all the read digits from LSB to MSB, converting from ASCII to decimal
@@ -43,7 +55,9 @@ std::string TString::getValue()
 
 std::string TString::toString()
 {
-    return this->str;
+    std::ostringstream oss;
+    oss << this->str.length() << ":" << this->str;
+    return oss.str();
 }
 
 std::string TString::toJson()

@@ -1,6 +1,7 @@
 #include "torrentfile.h"
 #include "utils.h"
 #include "parsing/data/tbytes.h"
+#include "utils/sha1.h"
 
 TorrentFile::TorrentFile()
 {
@@ -10,14 +11,13 @@ TorrentFile::TorrentFile()
 void TorrentFile::loadFile(std::string path)
 {
     TBytes *b = new TBytes(Utils::readAllBytes(path));
-
     loadDictionnary(new TDictionary(b));
 }
 
 void TorrentFile::loadDictionnary(TDictionary *dic)
 {
     //General Info
-    this->announce = dic->getString("announce")->getValue();
+    this->announce = dic->getStringVal("announce");
     this->creation_date = dic->getIntVal("creation date");
     this->comment = dic->getStringVal("comment");
     this->created_by = dic->getStringVal("created_by");
@@ -25,6 +25,8 @@ void TorrentFile::loadDictionnary(TDictionary *dic)
 
     //Info Header
     TDictionary *info = dic->getDictionary("info");
+
+    this->info_hash = sha1(info->toString());
 
     if(info->hasKey("files"))
     {
@@ -90,4 +92,14 @@ std::string TorrentFile::getCreatedBy()
 std::string TorrentFile::getEncoding()
 {
     return this->encoding;
+}
+
+std::string TorrentFile::getInfoHash()
+{
+    return this->info_hash;
+}
+
+std::vector<std::string> TorrentFile::getTrackerUrls()
+{
+
 }

@@ -42,7 +42,7 @@ void TList::read(TBytes *bytes)
         if(t != 0)
         {
             this->values.push_back(t);
-            c = bytes->currentByte();
+            c = bytes->nextByte();
         }
         else
         {
@@ -61,11 +61,14 @@ std::vector<TData*> TList::getValues()
 std::string TList::toString()
 {
     std::ostringstream oss;
+    oss << "l";
 
     for(int i=0;i<values.size();i++)
     {
-        oss << values[i]->toString() << " | ";
+        oss << values[i]->toString();
     }
+
+    oss << "e";
 
     return oss.str();
 }

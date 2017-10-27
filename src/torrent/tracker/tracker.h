@@ -3,8 +3,16 @@
 
 #include <vector>
 #include <string>
+#include "torrent/torrentfile.h"
 
 //https://wiki.theory.org/index.php/BitTorrentSpecification#Tracker_HTTP.2FHTTPS_Protocol
+
+struct Peer
+{
+    std::string id;
+    std::string ip;
+    int port;
+};
 
 struct HttpTrackerRequest
 {
@@ -25,16 +33,33 @@ struct HttpTrackerRequest
 
 struct HttpTrackerResponse
 {
-
+    std::string failure_reason;
+    std::string warning_message;
+    int interval;
+    int min_interval;
+    std::string tracker_id;
+    int complete; //Seeders
+    int incomplete; //Leechers
+    std::vector<Peer> peers;
 };
 
 
 class Tracker
 {
 public:
-    Tracker();
+    Tracker(std::string url, TorrentFile* parent);
 
-private:
+    virtual void request() = 0;
+    virtual void request(HttpTrackerRequest req) = 0;
+    static HttpTrackerResponse parseResponse(std::string data);
+
+protected:
+    std::string getDummyParameters();
+    std::string getParameters();
+    static std::string getParameters(HttpTrackerRequest request);
+
+    std::string url;
+    TorrentFile *parent;
 
 };
 

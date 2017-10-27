@@ -4,6 +4,14 @@
 
 TBytes::TBytes(std::vector<char> bytes)
 {
+    this->bytes_str = std::string(bytes.begin(), bytes.end());
+    setBytes(bytes);
+}
+
+TBytes::TBytes(std::string text)
+{
+    std::vector<char> bytes(text.begin(), text.end());
+    this->bytes_str = text;
     setBytes(bytes);
 }
 
@@ -24,6 +32,18 @@ std::vector<char> TBytes::nextBytes(int length)
 {
     std::vector<char> data(this->bytes.begin() + this->position, this->bytes.begin() + this->position + length);
     this->position += length;
+    return data;
+}
+
+std::vector<char> TBytes::getBytes(int start, int length)
+{
+    std::vector<char> data(this->bytes.begin() + start, this->bytes.begin() + start + length);
+    return data;
+}
+
+std::string TBytes::getText(int start, int length)
+{
+    std::string data(this->bytes.begin() + start, this->bytes.begin() + start + length);
     return data;
 }
 

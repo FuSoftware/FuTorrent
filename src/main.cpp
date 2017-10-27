@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     //QApplication a(argc, argv);
 
-    //testTorrentDic();
+    //testDictionary();
     testTorrentDic("C:/Users/Florent/Downloads/Middle.Earth.Shadow.of.War-CODEX.torrent");
 
     //return a.exec();

@@ -42,7 +42,7 @@ void TDictionary::read(TBytes *bytes)
 
         if(data != 0)
         {
-            this->values.insert(std::make_pair(key->toString(),data));
+            this->values.insert(std::make_pair(key->getValue(),data));
             c = bytes->currentByte();
         }
         else
@@ -57,18 +57,13 @@ std::string TDictionary::toString()
     std::map<std::string, TData*>::iterator it;
 
     std::ostringstream oss;
-    oss << "[ ";
-
+    oss << "d";
     for (it = this->values.begin(); it != this->values.end(); it++)
     {
-        oss << " \"" << it->first << "\" => " << it->second->toJson() << ",";
+        oss << it->first.size() << ":" << it->first << it->second->toString();
     }
-
-    std::string str = oss.str();
-    str = str.substr(0,str.length()-1);
-    str += " ]";
-
-    return str;
+    oss << "e";
+    return oss.str();
 }
 
 std::string TDictionary::toJson()

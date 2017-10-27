@@ -31,6 +31,9 @@ public:
     std::string getCreatedBy();
     std::string getEncoding();
     std::vector<ReceivedFileInfo> getFiles();
+    std::vector<std::string> getTrackerUrls();
+
+    std::string getInfoHash(); //SHA1 hash
 
 private:
     //Info Header
@@ -50,6 +53,8 @@ private:
     std::string comment;
     std::string created_by;
     std::string encoding;
+
+    std::string info_hash;
 
 };
 

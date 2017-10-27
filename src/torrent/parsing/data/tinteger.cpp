@@ -53,7 +53,7 @@ int TInteger::getValue()
 std::string TInteger::toString()
 {
     std::ostringstream oss;
-    oss << this->value;
+    oss << "i" << this->value << "e";
     return oss.str();
 }
 

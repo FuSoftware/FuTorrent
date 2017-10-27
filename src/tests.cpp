@@ -1,5 +1,6 @@
 #include "tests.h"
 #include "torrent/torrentfile.h"
+#include "utils/sha1.h"
 
 #include <QFileDialog>
 
@@ -71,7 +72,7 @@ std::string testDictionary(std::string bytes)
     std::vector<char> v(bytes.begin(), bytes.end());
     TBytes *data = new TBytes(v);
     TDictionary *d = new TDictionary(data);
-    return d->toJson();
+    return d->toString();
 }
 
 void testTorrentDic()
@@ -94,3 +95,9 @@ void testTorrentDic(std::string file)
     }
 }
 
+void testDictionaryHash(std::string dic)
+{
+    TBytes *data = new TBytes(dic);
+    TDictionary *d = new TDictionary(data);
+    std::cout << d->toString() << " => " << sha1(d->toString()) << std::endl;
+}
